@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  email        String   @id @unique
+  password     String
+  language     String
+  creationDate DateTime @default(now())
+  players      Player[]
+}
+
+model Player {
+  id           Int          @id @default(autoincrement())
+  name         String
+  gender       Int          @default(0)
+  creationDate DateTime @default(now())
+  account      Account      @relation(fields: [accountId], references: [email], onDelete: Cascade)
+  accountId    String       @map("account_id")
+  playerData   PlayerData[]
+}
+
+model PlayerVariable {
+  id         Int          @id @default(autoincrement())
+  name       String
+  type       Int          @default(0)
+  playerData PlayerData[]
+}
+
+model PlayerData {
+  playerId   Int            @map("player_id")
+  variableId Int            @map("variable_id")
+  value      String
+  player     Player         @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  variable   PlayerVariable @relation(fields: [variableId], references: [id], onDelete: Cascade)
+
+  @@id([playerId, variableId])
+}
