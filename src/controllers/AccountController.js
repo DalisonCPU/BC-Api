@@ -60,7 +60,41 @@ class AccountController {
             return res.status(500).json({ message: "Erro interno do servidor" })
         }
     }
-
+    async createAccount(req, res) {
+        const { email, password, language } = req.body; // Certifique-se de que os dados da nova conta estão presentes no corpo da solicitação.
+    
+        try {
+          const existingAccount = await prisma.account.findUnique({
+            where: {
+              email,
+            },
+          });
+    
+          if (existingAccount) {
+            return res
+              .status(400)
+              .json({ message: "Já existe uma conta com esse email" });
+          }
+    
+          const newAccount = await prisma.account.create({
+            data: {
+              email,
+              password,
+              language,
+            },
+          });
+    
+          return res.status(200).json({
+            id: newAccount.id,
+            email: newAccount.email,
+            language: newAccount.language,
+          });
+        } catch (error) {
+          console.error("Ocorreu um erro:", error);
+          return res.status(500).json({ message: "Erro interno do servidor" });
+        }
+      }
+    
 }
 
 export default AccountController

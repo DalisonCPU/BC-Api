@@ -1,11 +1,12 @@
 import express from "express"
-import PlayerController from "../controllers/Player.js"
+import PlayerController from "../controllers/PlayerController"
 
 const router = express.Router()
 const playerController = new PlayerController()
 
 router.get("/:name", playerController.getPlayer)
-router.get("/", playerController.getPlayers)
+//router.get("/", playerController.getPlayers)
 router.post("/create", playerController.createPlayer)
 router.delete("/delete/:id", playerController.deletePlayer)
+
 export default router

@@ -1,0 +1,2 @@
+
+curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"novoemail@example.com\",   \"password\": \"senha123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
