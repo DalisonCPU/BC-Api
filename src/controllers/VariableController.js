@@ -52,7 +52,7 @@ class VariableController {
 
   async deleteVariable(req, res) {
     try {
-      const { id } = req.body;
+      const id =parseInt(req.params.id)
 
       await prisma.playerVariable.delete({
         where: {

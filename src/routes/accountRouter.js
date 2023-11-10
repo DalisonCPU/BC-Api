@@ -1,5 +1,5 @@
 import express from "express"
-import AccountController from "../controllers/AccountController"
+import AccountController from "../controllers/AccountController.js"
 
 const accountController = new AccountController()
 const router = express.Router()
