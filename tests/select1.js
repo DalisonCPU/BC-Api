@@ -3,19 +3,16 @@ const prisma = new PrismaClient();
 
 async function showInfos() {
 
-    const result = await prisma.players_vdata.findMany({
-        select: {
-            value: true,
-            variable: {
-                select: {
-                    name: true,
-                    type: true
+    const result = await prisma.account.findMany({
+        include: {
+            players: {
+                include: {
+                    playerData: true
                 }
             }
         }
-    });
-
-    console.log(result);
+    })
+    console.log(JSON.stringify(result))
 }
 
-fetchData();
+showInfos()

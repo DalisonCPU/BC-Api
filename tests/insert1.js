@@ -2,12 +2,30 @@ import { PrismaClient} from "@prisma/client"
 const prisma = new PrismaClient()
 
 async function addPlayers() {
-    const result = await prisma.players.create({
+
+    const result = await prisma.account.create({
         data: {
-            name: "fred",
-            password: "12345",
-            email: "fred@gmail.com"
-        }
+            email: "test@gmail.com",
+            password: "test123",
+            language: "en",
+            players: {
+                create: {
+                    name: "test",
+                    gender: 0,
+                    playerData: {
+                        create: {
+                            variable: {
+                                create: {
+                                    name: "segurando",
+                                    type: 0,
+                                }
+                            },
+                            value: "Carambola",
+                        },
+                    },
+                },
+            },
+        },
     })
 
     console.log(result)
