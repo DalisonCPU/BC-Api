@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
 
 class VariableController {
@@ -56,7 +55,7 @@ class VariableController {
 
   async deleteVariable(req, res) {
     try {
-      const id =parseInt(req.params.id)
+      const id = parseInt(req.params.id)
 
       await prisma.playerVariable.delete({
         where: {
@@ -71,13 +70,21 @@ class VariableController {
     }
   }
 
-  async getVariable(req, res) {
+  async getListVariables(req, res) {
     try {
-      const { id } = req.params;
+      let listIds = req.params.listIds
 
-      const variable = await prisma.playerVariable.findUnique({
+      if (!listIds) {
+        return res.status(400).json({ message: "IDs não informados" });
+      }
+
+      listIds = listIds.split(",").map(id => parseInt(id, 10))
+
+      const variable = await prisma.playerVariable.findMany({
         where: {
-          id: parseInt(id, 10),
+          id: {
+            in: listIds
+          }
         },
       });
 
