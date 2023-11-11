@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
 
 class VariableController {
@@ -52,7 +51,7 @@ class VariableController {
 
   async deleteVariable(req, res) {
     try {
-      const id =parseInt(req.params.id)
+      const id = parseInt(req.params.id)
 
       await prisma.playerVariable.delete({
         where: {
@@ -67,13 +66,21 @@ class VariableController {
     }
   }
 
-  async getVariable(req, res) {
+  async getListVariables(req, res) {
     try {
-      const { id } = req.params;
+      let listIds = req.params.listIds
 
-      const variable = await prisma.playerVariable.findUnique({
+      if (!listIds) {
+        return res.status(400).json({ message: "IDs não informados" });
+      }
+
+      listIds = listIds.split(",").map(id => parseInt(id, 10))
+
+      const variable = await prisma.playerVariable.findMany({
         where: {
-          id: parseInt(id, 10),
+          id: {
+            in: listIds
+          }
         },
       });
 
@@ -81,11 +88,11 @@ class VariableController {
         return res.status(404).json({ message: "Variável não encontrada" });
       }
 
-      return res.status(200).json({
-        id: variable.id,
-        name: variable.name,
-        type: variable.type,
-      });
+      return res.status(200).json(variable.map(v => ({
+        id: v.id,
+        name: v.name,
+        type: v.type,
+      })))
     } catch (error) {
       console.error("Ocorreu um erro:", error);
       return res.status(500).json({ message: "Erro interno do servidor" });
