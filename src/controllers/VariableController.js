@@ -15,13 +15,15 @@ class VariableController {
       });
 
       return res.status(200).json({
+        code:200,
+        msg:"Sucesso",
         id: newVariable.id,
         name: newVariable.name,
         type: newVariable.type,
       });
     } catch (error) {
       console.error("Ocorreu um erro:", error);
-      return res.status(500).json({ message: "Erro interno do servidor" });
+      return res.status(500).json({code:500,  msg: "Erro interno do servidor" });
     }
   }
 
@@ -40,13 +42,15 @@ class VariableController {
       });
 
       return res.status(200).json({
+        code:200,
+        msg:"Sucesso",
         id: updatedVariable.id,
         name: updatedVariable.name,
         type: updatedVariable.type,
       });
     } catch (error) {
       console.error("Ocorreu um erro:", error);
-      return res.status(500).json({ message: "Erro interno do servidor" });
+      return res.status(500).json({code:200,  msg: "Erro interno do servidor" });
     }
   }
 
@@ -60,10 +64,10 @@ class VariableController {
         },
       });
 
-      return res.status(200).send(); // Resposta sem conteúdo para indicar sucesso na exclusão
+      return res.status(200).json({code:200, msg:"Sucesso"});
     } catch (error) {
       console.error("Ocorreu um erro:", error);
-      return res.status(500).json({ message: "Erro interno do servidor" });
+      return res.status(500).json({code:500,  msg: "Erro interno do servidor" });
     }
   }
 
@@ -78,17 +82,19 @@ class VariableController {
       });
 
       if (!variable) {
-        return res.status(404).json({ message: "Variável não encontrada" });
+        return res.status(404).json({code:404,  msg: "Variável não encontrada" });
       }
 
       return res.status(200).json({
+        code:200,
+        msg:"Sucesso",
         id: variable.id,
         name: variable.name,
         type: variable.type,
       });
     } catch (error) {
       console.error("Ocorreu um erro:", error);
-      return res.status(500).json({ message: "Erro interno do servidor" });
+      return res.status(500).json({code:500,  msg: "Erro interno do servidor" });
     }
   }
 }

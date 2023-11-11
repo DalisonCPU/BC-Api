@@ -35,7 +35,7 @@ class AccountController {
             })
 
             if (!account) {
-                return res.status(404).json({ message: "Conta não encontrada" });
+                return res.status(404).json({ code:404, msg: "Conta não encontrada" });
             }
 
 
@@ -51,13 +51,15 @@ class AccountController {
 
 
             return res.status(200).json({
+              code:200,
+              msg:"Sucesso",
                 id: account.id,
                 language: account.language,
                 formattedResult});
 
         } catch (error) {
             console.error("Ocorreu um erro:", error)
-            return res.status(500).json({ message: "Erro interno do servidor" })
+            return res.status(500).json({ code:500, msg: "Erro interno do servidor" })
         }
     }
     async createAccount(req, res) {
@@ -73,7 +75,7 @@ class AccountController {
           if (existingAccount) {
             return res
               .status(400)
-              .json({ message: "Já existe uma conta com esse email" });
+              .json({code:400,  msg: "Já existe uma conta com esse email" });
           }
     
           const newAccount = await prisma.account.create({
@@ -85,13 +87,15 @@ class AccountController {
           });
     
           return res.status(200).json({
+            code:200,
+            msg:"Sucesso",
             id: newAccount.id,
             email: newAccount.email,
             language: newAccount.language,
           });
         } catch (error) {
           console.error("Ocorreu um erro:", error);
-          return res.status(500).json({ message: "Erro interno do servidor" });
+          return res.status(500).json({code:500,  msg: "Erro interno do servidor" });
         }
       }
     

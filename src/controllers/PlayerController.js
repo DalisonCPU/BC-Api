@@ -7,8 +7,8 @@ class PlayerController {
     async getPlayers(req, res) {
         const result = await prisma.players.findMany()
         res.status(200).json({
-            status: "success",
-            message: "List of players",
+            code:200,
+            msg:"Sucesso",
             player_list: result
         })
 
@@ -19,9 +19,9 @@ class PlayerController {
         const { name } = req.params
 
         if (name == null) {
-            return res.status(500).json({
-                status: "error",
-                message: "Missing name"
+            return res.status(400).json({
+                code:400,
+                msg:"Faltando nome"
             })
         }
 
@@ -40,9 +40,9 @@ class PlayerController {
 
         if (!player) {
             return res.status(404).json({
-                status: "not found",
-                message: "Player not found"
-            })
+                code:404,
+                msg:"Player não encontrado"
+        })
         }
 
         const props = {}
@@ -52,6 +52,8 @@ class PlayerController {
         }
 
         const jsonResult = {
+            code:200,
+            msg:"Sucesso",
             id: player.id,
             name: player.name,
             password: player.password,
@@ -77,8 +79,8 @@ class PlayerController {
             })
         } catch (err) {
             return res.status(500).json({
-                status: "error",
-                message: `Failed to create player: ${err.message}`
+                code:500,
+                msg:"Erro ao criar o player",
             })
         }
 
@@ -90,8 +92,8 @@ class PlayerController {
             })
             if (!variable) {
                 return res.status(500).json({
-                    status: "error",
-                    message: "Unable to create variable in player"
+                    code:500,
+                    msg:"Erro ao criar variável do player",            
                 })
 
             }
@@ -105,8 +107,8 @@ class PlayerController {
         }
 
         res.status(200).json({
-            status: "success",
-            message: "Player created successfull"
+            code:200,
+            msg:"Sucesso"
         })
 
     }
@@ -117,9 +119,9 @@ class PlayerController {
         let { id } = req.params
 
         if (!id) {
-            return res.status(500).json({
-                status: "error",
-                message: "Micing id"
+            return res.status(400).json({
+                code:400,
+                msg:"Faltando id"
             })
         }
 
@@ -133,8 +135,8 @@ class PlayerController {
 
         if (!result) {
             return res.status(404).json({
-                status: "not found",
-                message: "Player not found"
+                code:404,
+                msg:"Player não encontrado",
             })
         }
 
@@ -146,8 +148,8 @@ class PlayerController {
             })
         } catch (err) {
             return res.status(500).json({
-                status: "error",
-                message: `Error when deleteing player: ${err.message}`
+                code:500,
+                msg:"Erro interno do servidor"
             })
         }
     }
