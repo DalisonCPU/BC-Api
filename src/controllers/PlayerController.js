@@ -15,14 +15,9 @@ class PlayerController {
     }
 
     async getPlayer(req, res) {
-
         const { name } = req.params
-
         if (name == null) {
-            return res.status(400).json({
-                code:400,
-                msg:"Faltando nome"
-            })
+            return res.status(400).json({error:"Faltando nome"})
         }
 
         const player = await prisma.players.findUnique({
@@ -39,10 +34,7 @@ class PlayerController {
         })
 
         if (!player) {
-            return res.status(404).json({
-                code:404,
-                msg:"Player não encontrado"
-        })
+            return res.status(404).json({error:"Player não encontrado"})
         }
 
         const props = {}
@@ -78,10 +70,7 @@ class PlayerController {
                 }
             })
         } catch (err) {
-            return res.status(500).json({
-                code:500,
-                msg:"Erro ao criar o player",
-            })
+            return res.status(500).json({error:"Erro ao criar o player"})
         }
 
         for (const [key, value] of Object.entries(props)) {
@@ -91,11 +80,7 @@ class PlayerController {
                 }
             })
             if (!variable) {
-                return res.status(500).json({
-                    code:500,
-                    msg:"Erro ao criar variável do player",            
-                })
-
+                return res.status(500).json({error:"Erro ao criar variável do player"})
             }
             await prisma.players_vdata.create({
                 data: {
@@ -106,10 +91,7 @@ class PlayerController {
             })
         }
 
-        res.status(200).json({
-            code:200,
-            msg:"Sucesso"
-        })
+        res.status(200).json({})
 
     }
 
@@ -119,10 +101,7 @@ class PlayerController {
         let { id } = req.params
 
         if (!id) {
-            return res.status(400).json({
-                code:400,
-                msg:"Faltando id"
-            })
+            return res.status(400).json({error:"Faltando id"})
         }
 
         id = Number(id)
@@ -134,10 +113,7 @@ class PlayerController {
         })
 
         if (!result) {
-            return res.status(404).json({
-                code:404,
-                msg:"Player não encontrado",
-            })
+            return res.status(404).json({error:"Player não encontrado"})
         }
 
         try {
@@ -147,10 +123,7 @@ class PlayerController {
                 }
             })
         } catch (err) {
-            return res.status(500).json({
-                code:500,
-                msg:"Erro interno do servidor"
-            })
+            return res.status(500).json({error:"Erro interno do servidor"})
         }
     }
 }

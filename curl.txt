@@ -2,9 +2,12 @@
 //Generic
 curl -X POST -H "Content-Type: application/json" -d "" http://localhost:8085/api/account/create
 
-curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"novoemail@example.com\",   \"password\": \"senha123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
+curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"utred@gmail.com\",   \"password\": \"senha123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
+
+//Variables
 
 curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"hp\",\"type\":0}" http://localhost:8085/api/variable/create
-curl -X GET http://localhost:8085/api/variable/1
+curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"mana\",\"type\":0}" http://localhost:8085/api/variable/create
+curl -X GET http://localhost:8085/api/variable/2
 curl -X PUT -H "Content-Type: application/json" -d "{\"id\":1,\"name\":\"hp\",\"type\":5}" http://localhost:8085/api/variable/update
 curl -X DELETE http://localhost:8085/api/variable/delete/1
