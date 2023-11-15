@@ -3,10 +3,12 @@ import cors from "cors"
 import PlayerRouter from "./src/routes/playerRouter.js"
 import AccountRouter from "./src/routes/accountRouter.js"
 import VariableRouter from "./src/routes/VariableRouter.js"
+import e from "express"
 
 const app = express()
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 app.use("/api/account", AccountRouter)
