@@ -21,12 +21,15 @@ class AccountController {
                 },
                 select: {
                     language: true,
+                    creationDate: true,
+                    lastLogin: true,
                     players: {
                         select: {
                             id: true,
                             name: true,
                             gender: true,
                             creationDate: true,
+                            lastLogin: true,
                             playerData: {
                                 select: {
                                     variable: {
@@ -51,6 +54,7 @@ class AccountController {
                 name: player.name,
                 gender: player.gender,
                 creationDate: player.creationDate,
+                lastLogin: player.lastLogin,
                 playerData: player.playerData.map((data) => ({
                     variableName: data.variable.name,
                     value: data.value
@@ -61,6 +65,7 @@ class AccountController {
             return res.status(200).json({
                 id: account.id,
                 language: account.language,
+              
                 players:formattedResult});
 
         } catch (error) {
