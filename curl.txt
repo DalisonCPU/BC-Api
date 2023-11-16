@@ -1,8 +1,9 @@
 
 //Generic
+curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"test@gmail.com\",   \"password\": \"test123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
 curl -X POST -H "Content-Type: application/json" -d "" http://localhost:8085/api/account/create
 
-curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"utred@gmail.com\",   \"password\": \"senha123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
+curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"test@gmail.com\",   \"password\": \"test123\"}" http://localhost:8085/api/account/login
 
 //Variables
 

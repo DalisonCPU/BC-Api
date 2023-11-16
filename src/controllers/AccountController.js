@@ -16,12 +16,12 @@ class AccountController {
       }
       const account = await prisma.account.findUnique({
         where: {
-          email,
-          password,
+          email
         },
         select: {
-          language: true,
+          email: true,
           creationDate: true,
+          language: true,
           lastLogin: true,
           players: {
             select: {
@@ -64,7 +64,10 @@ class AccountController {
 
       return res.status(200).json({
         id: account.id,
+        email: account.email,
         language: account.language,
+        creationDate: account.creationDate,
+        lastLogin: account.lastLogin,
 
         players: formattedResult
       });
