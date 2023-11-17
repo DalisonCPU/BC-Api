@@ -17,24 +17,29 @@ model Account {
   creationDate DateTime @default(now())
   lastLogin DateTime @default(now())
   players Player[]
+    @@map("tbl_account")
 }
 
 model Player {
   id Int @id @default(autoincrement())
-  fk_account String
-  name String
+  account_id String
+  name String @unique
   gender Int @default(0)
   creationDate DateTime @default(now())
   lastLogin DateTime @default(now())
-  account Account @relation(fields: [fk_account], references: [email], onDelete: Cascade)
+
+  
+  accountId  Account @relation(fields: [account_id], references: [email], onDelete: Cascade)
   playerData PlayerData[]
+  @@map("tbl_player")
 }
 
 model PlayerVariable {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   type Int @default(0)
   playerData PlayerData[]
+  @@map("tbl_playervariable")
 }
 
 model PlayerData {
@@ -43,6 +48,6 @@ model PlayerData {
   value String
   player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
   variable PlayerVariable @relation(fields: [variableId], references: [id], onDelete: Cascade)
-
   @@id([playerId, variableId])
+  @@map("tbl_playerdata")
 }
