@@ -12,7 +12,7 @@ CREATE TABLE "tbl_account" (
 -- CreateTable
 CREATE TABLE "tbl_player" (
     "id" SERIAL NOT NULL,
-    "fk_account" TEXT NOT NULL,
+    "account_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "gender" INTEGER NOT NULL DEFAULT 0,
     "creationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,8 +42,11 @@ CREATE TABLE "tbl_playerdata" (
 -- CreateIndex
 CREATE UNIQUE INDEX "tbl_account_email_key" ON "tbl_account"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "tbl_player_name_key" ON "tbl_player"("name");
+
 -- AddForeignKey
-ALTER TABLE "tbl_player" ADD CONSTRAINT "tbl_player_fk_account_fkey" FOREIGN KEY ("fk_account") REFERENCES "tbl_account"("email") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "tbl_player" ADD CONSTRAINT "tbl_player_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "tbl_account"("email") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "tbl_playerdata" ADD CONSTRAINT "tbl_playerdata_player_id_fkey" FOREIGN KEY ("player_id") REFERENCES "tbl_player"("id") ON DELETE CASCADE ON UPDATE CASCADE;

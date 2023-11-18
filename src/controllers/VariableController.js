@@ -4,23 +4,40 @@ const prisma = new PrismaClient();
 class VariableController {
   async createVariable(req, res) {
     try {
-      const { name, type } = req.body;
-if((name==null)||(name==="")||(type==null)||(type<0)){
-  return res.status(400).json({error:"Parâmetros inválidos. Verifique o json enviado."})
+      //console.log("Headers:\n", req.headers);
+      //console.log(JSON.stringify(req.body))
+      const  {name, type} = req.body;
+      if((name==null)||(name==="")||(type==null)||(type<0)){
+return res.status(400).json({error:"Um ou mais parâmetros são inválidos. Verifique o json enviado."});
+      }
+const variable=await prisma.playerVariable.findFirst({
+where:{
+name:name
 }
+}
+);
+if(variable){
+  return res.status(400).json({error:"Uma variável com este nome já existe."});
+}
+     
+//Adiciona a nova variável...
+const new_var=await prisma.playerVariable.create({
+data:{
+name,
+type
+}
+});
 
-      const newVariable = await prisma.playerVariable.create({
-        data: {
-          name,
-          type,
-        },
-      });
-
-      return res.status(200).json({
-        id: newVariable.id,
-        name: newVariable.name,
-        type: newVariable.type,
-      });
+if(new_var){
+  return res.status(200).json({
+id:new_var.id,
+name:new_var.name,
+type:new_var.type
+  });
+}
+else{
+  return res.status(500).json({error:"Não oi possível criar a variável no momento"});
+}
     } catch (error) {
       console.error("Ocorreu um erro:", error);
       return res.status(500).json({error: "Erro interno do servidor" });
@@ -110,6 +127,15 @@ if((id==null)||(id<=0)){
     }
   }
 
+  async getAllVariables(req, res){
+    try{
+    const vars=await prisma.playerVariable.findMany();
+    return res.status(200).json(vars);
+    } catch(err){
+      console.log("Ocorreu um erro: ", err);
+    return res.status(500).json({error: "Erro interno do servidor"});
+    }
+  }
 }
 
 export default VariableController;

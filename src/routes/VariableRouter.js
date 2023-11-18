@@ -4,6 +4,7 @@ import VariableController from "../controllers/VariableController.js"
 const router = express.Router()
 const varController = new VariableController()
 
+router.get("/", varController.getAllVariables)
 router.get("/:listIds", varController.getListVariables)
 router.put("/update", varController.updateVariable)
 //router.get("/", VariableController.getPlayers)

@@ -36,7 +36,7 @@ model Player {
 
 model PlayerVariable {
   id Int @id @default(autoincrement())
-  name String @unique
+  name String
   type Int @default(0)
   playerData PlayerData[]
   @@map("tbl_playervariable")
