@@ -7,6 +7,7 @@ class PlayerDataController{
     // Vincule os métodos internos ao objeto da instância
     this.internalcreateVariable = this.internalcreateVariable.bind(this);
     this.internalUpdateVariable = this.internalUpdateVariable.bind(this);
+    this.playerVariableExists=this.playerVariableExists.bind(this);
     this.createVariable = this.createVariable.bind(this);
     this.updateVariable = this.updateVariable.bind(this);
     this.createMultipleVariables = this.createMultipleVariables.bind(this);
@@ -128,7 +129,7 @@ if(!vplayer){
   return {error:"O jogador especificado não existe."};
 }
 
-if(playerVariableExists(playerId, varId)){
+if(this.playerVariableExists(playerId, varId)){
   return {error:"A variável especificada já existe no player."};
 }
 
@@ -154,7 +155,6 @@ if(playerVariableExists(playerId, varId)){
         return null;
       }
     }
-    
     
 async internalUpdateVariable(playerId, varName, value) {
     try {
@@ -210,20 +210,20 @@ return null;
     }
   }
 
-async playerVariableExists(playerId, varId){
-    try{
-    const vp=await prisma.findFirst({
-where:{
-  playerId:playerId,
-  varId:varId
+  async playerVariableExists(playerId, varId) {
+    try {
+        const vp = await prisma.playerData.findFirst({
+            where: {
+              playerId,
+              variableId: varId                
+            }
+        });
+        return vp ? vp : null;
+    } catch (err) {
+        console.log("Um erro aconteceu: ", err);
+        return null;
+    }
 }
-    });
-    return vp ? vp : null;
-  } catch(err){
-    console.log("Um erro aconteceu: ", err);
-    return null;
-  }
-  }
 }
 
 export default PlayerDataController;

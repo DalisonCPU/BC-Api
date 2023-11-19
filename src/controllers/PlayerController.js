@@ -1,15 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import PlayerDataController from "./PlayerDataController.js";
 const prisma = new PrismaClient()
-
+const playerDataController=new PlayerDataController()
 
 class PlayerController {
-    constructor() {
-        this.playerDataController = new PlayerDataController();
-      }
-    
-    
-
     async getPlayers(req, res) {
         const result = await prisma.players.findMany()
         res.status(200).json({
@@ -64,7 +58,7 @@ class PlayerController {
     async createPlayer(req, res) {
         try {
 
-            const { name, password, email, language, props } = req.body;
+            const { name, gender, email, props } = req.body;
 
             if(!email){
             return res.status(400).json({error:"Conta não indicada para associar o novo player."});
@@ -80,12 +74,10 @@ class PlayerController {
         return res.status(400).json({error:"A conta especificada não existe."});
     }
 
-            let player;
-                player = await prisma.player.create({
+                const player = await prisma.player.create({
                     data: {
                         name,
-                        password,
-                        language,
+                        gender,
                     account:{
                         connect:{
                             email:email
@@ -94,15 +86,26 @@ class PlayerController {
                     },
                 });
             
+                if(!player){
+                    return res.status(500).json({error:"Erro ao criar o player. Tente mais tarde."});
+                }
+                
             for (const [key, value] of Object.entries(props)) {
-                    const result = await this.playerDataController.internalcreateVariable(player.id, key, value);
+                    const result = await playerDataController.internalcreateVariable(player.id, key, value);
     
                     if (result && result.error) {
                         return res.status(500).json({ error: "Erro ao criar variável do player" });
                     }
             }
     
-            return res.status(200).json({});
+            return res.status(200).json({
+                id: player.id,
+                name: player.name,
+                gender: player.gender,
+                accountId: player.account.id,
+                playerData: player.playerData
+              });
+              
         } catch (error) {
             console.error("Um erro aconteceu ao criar o player. ", error);
             return res.status(500).json({ error: "Erro interno do servidor." });

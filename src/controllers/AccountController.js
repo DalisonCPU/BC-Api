@@ -104,7 +104,6 @@ class AccountController {
       });
 
       return res.status(200).json({
-        id: newAccount.id,
         email: newAccount.email,
         language: newAccount.language,
       });

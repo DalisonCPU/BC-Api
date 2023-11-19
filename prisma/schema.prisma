@@ -22,14 +22,12 @@ model Account {
 
 model Player {
   id Int @id @default(autoincrement())
-  account_id String
+  accountId String @map("account_id")
   name String @unique
   gender Int @default(0)
   creationDate DateTime @default(now())
   lastLogin DateTime @default(now())
-
-  
-  accountId  Account @relation(fields: [account_id], references: [email], onDelete: Cascade)
+  account  Account @relation(fields: [accountId], references: [email], onDelete: Cascade)
   playerData PlayerData[]
   @@map("tbl_player")
 }
