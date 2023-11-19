@@ -1,13 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-class VariableController {
+class PlayerVariableController {
   async createVariable(req, res) {
-    try {
-      //console.log("Headers:\n", req.headers);
-      //console.log(JSON.stringify(req.body))
+    try {      
       const  {name, type} = req.body;
-      if((name==null)||(name==="")||(type==null)||(type<0)){
+      if((!name)||(type==null)){
 return res.status(400).json({error:"Um ou mais parâmetros são inválidos. Verifique o json enviado."});
       }
 const variable=await prisma.playerVariable.findFirst({
@@ -90,12 +88,13 @@ if((id==null)||(id<=0)){
     }
   }
 
-  async getListVariables(req, res) {
+  async getVariables(req, res) {
     try {
       let listIds = req.params.listIds;
 
       if (!listIds) {
-        return res.status(400).json({ error: "IDs não informados" });
+const vars=await prisma.playerVariable.findMany();
+return res.status(200).json(vars);
       }
 
       listIds = listIds.split(",").map(id => parseInt(id, 10));
@@ -126,16 +125,6 @@ if((id==null)||(id<=0)){
       return res.status(500).json({error: "Erro interno do servidor" });
     }
   }
-
-  async getAllVariables(req, res){
-    try{
-    const vars=await prisma.playerVariable.findMany();
-    return res.status(200).json(vars);
-    } catch(err){
-      console.log("Ocorreu um erro: ", err);
-    return res.status(500).json({error: "Erro interno do servidor"});
-    }
-  }
 }
 
-export default VariableController;
+export default PlayerVariableController;
