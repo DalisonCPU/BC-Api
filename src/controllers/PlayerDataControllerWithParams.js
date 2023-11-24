@@ -9,7 +9,7 @@ constructor    (){
     //this.playerVariableExists=this.playerVariableExists.bind(this);
 }
 
-static async getVariable(playerId, varName){
+async getVariable(playerId, varName){
 try{
 const res=await this.getVariableId(varName);
 if(res.status!==200){
@@ -34,7 +34,7 @@ else{
 }
 }
 
-    static async createVariable(playerId, varName, value) {
+    async createVariable(playerId, varName, value) {
         try {
           const jvar = await this.getVariableId(varName);
       
@@ -118,7 +118,7 @@ static   async updateVariable(playerId, varName, value) {
       }
     }
     
-  static async getVariableId(var_name) {
+  async getVariableId(var_name) {
       try {
         // Execute a função do banco de dados usando $queryRaw
         const result = await prisma.$queryRaw`SELECT get_variable_id(${var_name}) AS id`;
@@ -129,7 +129,7 @@ static   async updateVariable(playerId, varName, value) {
         // Obtenha o ID da variável do resultado
         const varId = result[0]?.id;
   
-return {status:200, id: id};
+return {status:200, id: varId};
       } catch (error) {
         console.error("Erro ao obter ID da variável:", error);
 return {status:500, error: "Erro interno do servidor"};

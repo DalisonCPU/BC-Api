@@ -59,7 +59,7 @@ class PlayerDataController{
           }
       
           let createdCount = 0;
-          const expectedCount=vars.length();
+          const expectedCount=vars.length;
           const errors = [];
       
           for (const variable of vars) {
