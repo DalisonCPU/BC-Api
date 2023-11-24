@@ -2,15 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import PlayerControllerWithParams from './PlayerDataControllerWithParams.js';
 
 const prisma = new PrismaClient()
-const pc=new PlayerControllerWithParams();
+const pc =new PlayerControllerWithParams();
 
 class PlayerDataController{
-  constructor() {
-    //this.createVariable = this.createVariable.bind(this);
-    this.updateVariable = this.updateVariable.bind(this);
-    this.createMultipleVariables = this.createMultipleVariables.bind(this);
-    this.updateMultipleVariables = this.updateMultipleVariables.bind(this);
-  }
 
     async createVariable(req, res) {
         try {

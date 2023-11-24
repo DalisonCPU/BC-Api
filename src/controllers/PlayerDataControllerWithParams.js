@@ -3,13 +3,8 @@ const prisma = new PrismaClient()
 
 
 class PlayerDataControllerWithParams{
-constructor    (){
-//this.createVariable = this.createVariable.bind(this);
-    //this.updateVariable = this.updateVariable.bind(this);
-    //this.playerVariableExists=this.playerVariableExists.bind(this);
-}
 
-static async getVariable(playerId, varName){
+async getVariable(playerId, varName){
 try{
 const res=await this.getVariableId(varName);
 if(res.status!==200){
@@ -34,7 +29,7 @@ else{
 }
 }
 
-    static async createVariable(playerId, varName, value) {
+    async createVariable(playerId, varName, value) {
         try {
           const jvar = await this.getVariableId(varName);
       
@@ -118,7 +113,7 @@ static   async updateVariable(playerId, varName, value) {
       }
     }
     
-  static async getVariableId(var_name) {
+  async getVariableId(var_name) {
       try {
         // Execute a função do banco de dados usando $queryRaw
         const result = await prisma.$queryRaw`SELECT get_variable_id(${var_name}) AS id`;
