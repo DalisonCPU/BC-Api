@@ -18,3 +18,4 @@ curl -X POST -d "@jsons/variable_1.json" -H "Content-Type: application/json" htt
 curl -X POST -d "@jsons/account_create.json" -H "Content-Type: application/json" http://localhost:8085/api/account/create
 curl -X POST -d "@jsons/player_create.json" -H "Content-Type: application/json" http://localhost:8085/api/player/create
 curl -X POST -d "@jsons/variable_2.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create
+curl -X POST -d "@jsons/variable_multiple.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create/multiple

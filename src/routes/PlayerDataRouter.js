@@ -1,4 +1,5 @@
 import express from "express";
+import PlayerDataControllerWithParams from "../controllers/PlayerDataControllerWithParams.js";
 import PlayerDataController from "../controllers/PlayerDataController.js";
 
 const router = express.Router();
