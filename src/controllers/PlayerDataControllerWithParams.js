@@ -3,11 +3,6 @@ const prisma = new PrismaClient()
 
 
 class PlayerDataControllerWithParams{
-constructor    (){
-//this.createVariable = this.createVariable.bind(this);
-    //this.updateVariable = this.updateVariable.bind(this);
-    //this.playerVariableExists=this.playerVariableExists.bind(this);
-}
 
 async getVariable(playerId, varName){
 try{
