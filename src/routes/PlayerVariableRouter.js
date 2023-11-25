@@ -5,9 +5,9 @@ const router = express.Router()
 const varController = new PlayerVariableController()
 
 router.get("/", varController.getVariables)
-router.get("/:listIds", varController.getVariables)
-router.put("/update", varController.updateVariable)
-router.post("/create", varController.createVariable)
-router.delete("/delete/:id", varController.deleteVariable)
+router.get("/get", varController.getVariables)
+router.put("/update", varController.updateVariables)
+router.post("/create", varController.createVariables)
+router.delete("/delete", varController.deleteVariables)
 
 export default router

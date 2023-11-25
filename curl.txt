@@ -3,19 +3,7 @@
 curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"test@gmail.com\",   \"password\": \"test123\",   \"language\": \"pt-BR\" }" http://localhost:8085/api/account/create
 
 
-curl -X POST -H "Content-Type: application/json" -d "" http://localhost:8085/api/account/create
-
-curl -X POST -H "Content-Type: application/json" -d "{   \"email\": \"test@gmail.com\",   \"password\": \"test123\"}" http://localhost:8085/api/account/login
-
-//Variables
-
-curl -X POST -d "@jsons/variable_1.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/create
-curl -X GET http://localhost:8085/api/player/variable/2
-
-curl -X POST -d "@jsons/player_variable_1.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create
-
-curl -X POST -d "@jsons/variable_1.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/create
-curl -X POST -d "@jsons/account_create.json" -H "Content-Type: application/json" http://localhost:8085/api/account/create
-curl -X POST -d "@jsons/player_create.json" -H "Content-Type: application/json" http://localhost:8085/api/player/create
-curl -X POST -d "@jsons/variable_2.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create
-curl -X POST -d "@jsons/variable_multiple.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create/multiple
+curl -X POST -d "@jsons/create_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/create
+curl -X GET -d "@jsons/get_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/get
+curl -X PUT -d "@jsons/update_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/update
+curl -X DELETE -d "@jsons/delete_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/delete
