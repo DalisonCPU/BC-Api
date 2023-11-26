@@ -128,6 +128,47 @@ updatedVariables.push([name, type]);
       return { status: 500, error: "Erro interno do servidor" };
     }
   }
+
+  async existsById(id){
+    try{
+        if((id===null)||(id<=0)){
+return {status:400, error: "O parâmetro id é inválido"};
+        }
+
+const vdata =await prisma.PlayerVariable.findUnique({where:{
+    id:id
+}});
+if(vdata===null){
+    return {status:404, error:"A variável especificada não existe"};
+}
+
+return {status:200, id:vdata.id, name:vdata.name}
+    }catch(err){
+        console.log("Erro ao recuperar uma variável:\n", err);
+        return {status:500, error:"Erro interno do servidor"};
+    }
+}
+
+async existsByName(name){
+    try{
+if((name===null)||(name==="")){
+    return {status:400, error:"O parâmetro name é inválido"};
+}
+
+const vdata=await prisma.PlayerVariable.findFirst({where:{
+    name:name.toLowerCase()
+}});
+
+if(vdata===null){
+    return {status:404, error: "A variável com o nome especificado não existe"};
+}
+
+return {status:200, id:vdata.id, name:vdata.name};
+    }catch(err){
+        console.log("Erro ao recuperar um player:\n", err);
+        return {status:500, error:"Erro interno do servidor"};
+    }
+}
 }
 
 export default PlayerVariableControllerWithParams;

@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import PlayerDataControllerWithParams from "./PlayerDataControllerWithParams.js";
 import PlayerDataController from "./PlayerDataController.js";
+
 const prisma = new PrismaClient()
+const plc=new PlayerDataControllerWithParams();
 const playerDataController=new PlayerDataController()
 
 class PlayerController {

@@ -5,9 +5,9 @@ import PlayerDataController from "../controllers/PlayerDataController.js";
 const router = express.Router();
 const playerDataController = new PlayerDataController();
 
-router.post("/create", playerDataController.createVariable);
-router.post("/update", playerDataController.updateVariable);
-router.post("/create/multiple", playerDataController.createMultipleVariables);
-router.post("/update/multiple", playerDataController.updateMultipleVariables);
+router.post("/create", playerDataController.createVariables);
+router.put("/update", playerDataController.updateVariables);
+router.delete("/delete", playerDataController.deleteVariables);
+router.get("/get", playerDataController.getVariables);
 
 export default router;

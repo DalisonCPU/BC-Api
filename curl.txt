@@ -7,3 +7,10 @@ curl -X POST -d "@jsons/create_variables.json" -H "Content-Type: application/jso
 curl -X GET -d "@jsons/get_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/get
 curl -X PUT -d "@jsons/update_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/update
 curl -X DELETE -d "@jsons/delete_variables.json" -H "Content-Type: application/json" http://localhost:8085/api/player/variable/delete
+
+//Player data routes
+
+curl -X POST -d "@jsons/player_data_create.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/create
+curl -X GET -d "@jsons/player_data_get.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/get
+curl -X PUT -d "@jsons/player_data_put.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/update
+curl -X DELETE -d "@jsons/player_data_delete.json" -H "Content-Type: application/json" http://localhost:8085/api/player/data/delete
