@@ -9,6 +9,7 @@ import PlayerControllerWithParams from './src/controllers/PlayerControllerWithPa
 import PlayerDataControllerWithParams from "./src/controllers/PlayerDataControllerWithParams.js"
 
 
+
 const app = express()
 
 app.use(express.json())
@@ -22,5 +23,8 @@ app.use("/api/player/data", PlayerDataRouter)
 
 app.listen(8085, async () => {
     console.log(`Servidor ativo`)
+    
+    const hcon=new PlayerControllerWithParams();
+    console.log("Testando:\n", await hcon.getPlayers(["fred"]));
 })
 

@@ -1,11 +1,32 @@
 import { PrismaClient } from "@prisma/client";
+import PlayerDataControllerWithParams from "./PlayerDataControllerWithParams.js";
+
 const prisma = new PrismaClient()
+const hvars=new PlayerDataControllerWithParams();
 
 class PlayerControllerWithParams{
 async getPlayers(plist){
     try{
 
+let chars=[];
 
+for(const name of plist){
+const ch=await this.existsByName(name);
+if(ch.status!==200){
+    continue;
+}
+
+const vars=await hvars.getVariables(ch.id, []);
+
+if(vars.status!==200){
+    continue;
+}
+
+const hresult={playerId: ch.id, name:ch.name, accountId:ch.accountId, gener:ch.gender, creationDate:ch.creationDate, lastLogin:ch.lastLogin, vars:vars};
+chars.push(hresult);
+}
+
+return {status:200, expected:plist.length, count:chars.length, chars:chars};
     }catch(err){
         console.log("Erro ao recuperar um player:\n", err);
         return {status:500, error:"Erro interno do servidor"};
@@ -56,7 +77,7 @@ if(ch===null){
     return {status:404, error:"O player especificado não existe"};
 }
 
-return {status:200, id:ch.id, name:ch.name};
+return {status:200, id:ch.id, name:ch.name, accountId:ch.accountId, gender:ch.gender, creationDate:ch.creationDate, lastLogin:ch.lastLogin};
     }catch(err){
         console.log("Erro ao recuperar um player:\n", err);
         return {status:500, error:"Erro interno do servidor"};
@@ -77,7 +98,7 @@ if(ch===null){
     return {status:404, error: "O player com o nome especificado não existe"};
 }
 
-return {status:200, id:ch.id, name:ch.name};
+return {status:200, id:ch.id, name:ch.name, accountId:ch.accountId, gender:ch.gender, creationDate:ch.creationDate, lastLogin:ch.lastLogin};
     }catch(err){
         console.log("Erro ao recuperar um player:\n", err);
         return {status:500, error:"Erro interno do servidor"};
