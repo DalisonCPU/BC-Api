@@ -25,6 +25,6 @@ app.listen(8085, async () => {
     console.log(`Servidor ativo`)
     
     const hcon=new PlayerControllerWithParams();
-    console.log("Testando:\n", await hcon.getPlayers(["fred"]));
+    console.log("Testando:\n", JSON.stringify(await hcon.getPlayers(["fred"])));
 })
 

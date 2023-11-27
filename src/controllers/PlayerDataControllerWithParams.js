@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import PlayerControllerWithParams from './PlayerControllerWithParams.js';
+import PlayerControllerUtility from "./PlayerControllerUtility.js";
 import PlayerVariableControllerWithParams from './PlayerVariableControllerWithParams.js';
 
 const prisma = new PrismaClient()
-const pc=new PlayerControllerWithParams();
+const hpUtility=new PlayerControllerUtility();
 const vc=new PlayerVariableControllerWithParams();
 
 class PlayerDataControllerWithParams {
@@ -15,7 +15,7 @@ class PlayerDataControllerWithParams {
       return {status:400, error:"Nenhuma lista de variáveis indicada."};
       }
 
-      const playerExists=await pc.existsById(playerId);
+      const playerExists=await hpUtility.playerExistsById(playerId);
       if(playerExists.status!=200){
         return {status:400, error: "O id do player é inválido"};
       }
@@ -57,7 +57,7 @@ class PlayerDataControllerWithParams {
           return { status: 400, error: "Nenhuma lista de variáveis indicada." };
         }
     
-        const playerExists = await pc.existsById(playerId);
+        const playerExists = await hpUtility.playerExistsById(playerId);
         if (playerExists.status !== 200) {
           return { status: 400, error: "O jogador com o id especificado não existe" };
         }
@@ -104,7 +104,7 @@ class PlayerDataControllerWithParams {
         }
     
         
-        const playerExists = await pc.existsById(playerId);
+        const playerExists = await hpUtility.playerExistsById(playerId);
     
         if (playerExists.status !== 200) {
           return { status: 400, error: "O jogador com o id especificado não existe" };
@@ -155,7 +155,7 @@ class PlayerDataControllerWithParams {
         return {status:400, error:"Nenhuma lista de variáveis indicada."};
         }
 
-        const playerExists=await pc.existsById(playerId);
+        const playerExists=await hpUtility.playerExistsById(playerId);
 
         if(playerExists.status!==200){
           return {status:400, error:"O jogador com o id especificado não existe"};
@@ -190,7 +190,7 @@ if(res!==null){
     
     async existsPlayerVariable(playerId, variableName){
     try {
-   const pdata=await pc.existsById(playerId);
+   const pdata=await hpUtility.playerExistsById(playerId);
 const vdata=await vc.existsByName(variableName);
 
 if((pdata.status!==200)||(vdata.status!=200)){
