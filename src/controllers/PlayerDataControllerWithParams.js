@@ -121,7 +121,7 @@ class PlayerDataControllerWithParams {
     
           const result = await prisma.playerData.create({
             data: {
-              value: value,
+              value: String(value),
               player: {
                 connect: {
                   id: playerId,

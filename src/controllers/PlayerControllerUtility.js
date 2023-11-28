@@ -31,7 +31,7 @@ class PlayerControllerUtility{
     }
     
     const ch=await prisma.player.findUnique({where:{
-        name:name.toLowerCase()
+        name:String(name).toLowerCase()
     }});
     
     if(ch===null){
