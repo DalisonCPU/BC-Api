@@ -20,14 +20,15 @@ for(const sf of alist){
 const ac=await prisma.account.create({data:{
     email:sf.email,
     password:sf.password,
-    language:sf.language
+    language:sf.language,
+flags:sf.flags
 }});
 
 if(sf===null){
     continue;
 }
 
-accounts.push({email:ac.email, language:ac.language, creationDate:ac.creationDate.getTime(), lastLogin:ac.lastLogin.getTime()});
+accounts.push({email:ac.email, language:ac.language, flags:ac.flags, creationDate:ac.creationDate.getTime(), lastLogin:ac.lastLogin.getTime()});
 }
 
 return {status:200, accounts:accounts};
@@ -51,6 +52,7 @@ if(existing.status!==200){
 
 const ac=await prisma.account.update({data:{
     language:sf.language,
+    flags:sf.flags,
     lastLogin:Date(sf.lastLogin)
 }, where:{
 email:sf.email

@@ -8,7 +8,6 @@ class PlayerVariableController {
   async createVariables(req, res){
     try{
 const result=await vc.createVariables(req.body);
-console.log("Result:\n", result);
 return res.status(result.status).json(result);
     }catch(err){
       console.log("Erro ao tratar a requisição:\n", err);

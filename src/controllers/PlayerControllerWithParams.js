@@ -34,7 +34,8 @@ class PlayerControllerWithParams{
                 playerId: ch.id,
                 name: ch.name,
                 accountId: ch.accountId,
-                gener: ch.gender,
+                gender: ch.gender,
+flags:ch.flags,
                 creationDate: ch.creationDate.getTime(),
                 lastLogin: ch.lastLogin.getTime(),
                 vars: vars.vars
@@ -61,6 +62,7 @@ class PlayerControllerWithParams{
                 name: player.name,
                 accountId: player.accountId,
                 gender: player.gender,
+                flags:ch.flags,
                 creationDate: player.creationDate.getTime(),
                 lastLogin: player.lastLogin.getTime(),
                 vars: vars.vars,
@@ -90,6 +92,7 @@ for(const ch of plist){
 const hresult= await prisma.player.update({
     data:{
         gender:ch.gender,
+flags:ch.flags,
 lastLogin:Date(ch.lastLogin)
     }, where:{
         id:existing.id
@@ -133,6 +136,7 @@ for(const ch of plist){
         data:{
             name:ch.name,
             gender:ch.gender,
+            flags:ch.flags,
             account:{
                 connect:{
                     email:ch.accountId

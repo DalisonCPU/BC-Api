@@ -9,7 +9,6 @@ class PlayerDataController {
   async createVariables(req, res){
     try{
     const {playerId, vars}=req.body;
-    console.log("playerid: ", playerId);
     const result=await pc.createVariables(playerId, vars);
     return res.status(result.status).json(result);
     } catch(err){
@@ -44,7 +43,6 @@ class PlayerDataController {
     try{
     const {playerId, vars}=req.body;
     const result=await pc.getVariables(playerId, vars);
-    console.log("O playerId é: ", playerId);
     return res.status(result.status).json(result);
     } catch(err){
     console.log("Erro na classe PlayerDataController:\n", err);
